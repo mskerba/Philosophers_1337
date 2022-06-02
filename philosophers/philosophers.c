@@ -6,7 +6,7 @@
 /*   By: mskerba <mskerba@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/29 16:07:35 by mskerba           #+#    #+#             */
-/*   Updated: 2022/06/01 17:08:15 by mskerba          ###   ########.fr       */
+/*   Updated: 2022/06/02 13:52:33 by mskerba          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,6 +64,7 @@ int	main(int c, char **s)
 		while (i < all->number_of_philosophers)
 		{
 			data[i].all = all;
+			pthread_mutex_init(&data[i].last, NULL);
 			pthread_create(&data[i].philo_life, NULL, ft_thread,
 					(void *)&data[i]);
 			usleep(1);
@@ -74,6 +75,7 @@ int	main(int c, char **s)
 		while (i < all->number_of_philosophers)
 		{
 			data[i].all = all;
+			pthread_mutex_init(&data[i].last, NULL);
 			pthread_create(&data[i].philo_life, NULL, ft_thread,
 					(void *)&data[i]);
 			i += 2;
@@ -83,11 +85,7 @@ int	main(int c, char **s)
 			return (0);
 		i = -1;
 		while (++i < all->number_of_philosophers)
-		{
 			pthread_join(data[i].philo_life, NULL);
-			// if (philo_return)
-			// 	return (0);
-		}
 		i = -1;
 		while (++i < all->number_of_philosophers)
 			pthread_mutex_destroy(&all->fork[i]);

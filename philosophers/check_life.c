@@ -6,7 +6,7 @@
 /*   By: mskerba <mskerba@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/01 12:06:11 by mskerba           #+#    #+#             */
-/*   Updated: 2022/06/01 16:52:29 by mskerba          ###   ########.fr       */
+/*   Updated: 2022/06/02 13:57:30 by mskerba          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,7 @@ void	*ft_check_thread(void *rcv)
 		i = 0;
 		while (i < data[0].all->number_of_philosophers)
 		{
+			pthread_mutex_lock(&data[i].last);
 			gettimeofday(&data[i].s_end, NULL);
 			if (data[i].n_philo_each > data[i].all->number_philo_each
 				&& data[i].all->number_philo_each != -1)
@@ -39,13 +40,14 @@ void	*ft_check_thread(void *rcv)
 				die_time(data);
 				return ("fail");
 			}
+			pthread_mutex_unlock(&data[i].last);
 			i++;
-			usleep(5);
+			// usleep(100);
 		}
 		if (j == data[0].all->number_of_philosophers
 			&& data[0].all->number_philo_each != -1)
 			return ("fail");
-		usleep(50);
+		usleep(300);
 	}
 	return (NULL);
 }
