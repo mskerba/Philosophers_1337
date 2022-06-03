@@ -6,7 +6,7 @@
 /*   By: mskerba <mskerba@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/29 16:07:00 by mskerba           #+#    #+#             */
-/*   Updated: 2022/06/02 13:59:47 by mskerba          ###   ########.fr       */
+/*   Updated: 2022/06/02 17:30:54 by mskerba          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,8 @@ typedef struct s_data
 	long			time_to_eat;
 	long			time_to_sleep;
 	int				number_philo_each;
-	struct timeval	start;
+	// struct timeval	start;
+	long			start;
 	pthread_mutex_t	all_fork;
 	pthread_mutex_t	die;
 	pthread_mutex_t	*fork;
@@ -37,20 +38,24 @@ typedef struct philosophers
 	pthread_t		philo_life;
 	t_all			*all;
 	int				name;
-	struct timeval	s_start;
-	struct timeval	s_end;
+	long			s_start;
+	long			s_end;
+	int			is_eating;
 	int				n_philo_each;
 	pthread_mutex_t	last;
 }					t_philo;
 
 void				taken_fork_time(t_philo *data);
+long				get_time(void);
 void				eating_time(t_philo *data);
 void				*ft_check_thread(void *rcv);
 void				die_time(t_philo *data);
+void				ft_usleep(int time);
 void				sleeping_time(t_philo *data);
 void				thinking_time(t_philo *data);
 int					odd_philo(t_philo *data);
 void				*ft_thread(void *rcv);
 void				print_action(t_philo *data, double time, char *msg);
 int					ft_atoi(const char *str);
+int					ft_strcmp(char *s1, char *s2);
 #endif

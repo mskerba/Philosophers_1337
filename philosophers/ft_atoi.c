@@ -5,12 +5,26 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: mskerba <mskerba@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/04/19 07:57:27 by mskerba           #+#    #+#             */
-/*   Updated: 2022/05/23 11:14:29 by mskerba          ###   ########.fr       */
+/*   Created: 2022/06/02 17:30:22 by mskerba           #+#    #+#             */
+/*   Updated: 2022/06/02 17:30:31 by mskerba          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+
 #include "philosophers.h"
+
+
+int	ft_strcmp(char	*s1, char	*s2)
+{
+	int	i;
+
+	i = 0;
+	while (s1[i] != '\0' && s2[i] == s1[i])
+	{
+		i++;
+	}
+	return ((unsigned char)s1[i] -(unsigned char)s2[i]);
+}
 
 static int	check_max_min(unsigned long res, int sign)
 {

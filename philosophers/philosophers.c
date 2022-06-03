@@ -6,7 +6,7 @@
 /*   By: mskerba <mskerba@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/29 16:07:35 by mskerba           #+#    #+#             */
-/*   Updated: 2022/06/02 13:52:33 by mskerba          ###   ########.fr       */
+/*   Updated: 2022/06/02 18:06:45 by mskerba          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ static void	data_management(t_all *all, char **s)
 	all->time_to_eat = ft_atoi(s[3]);
 	all->time_to_sleep = ft_atoi(s[4]);
 	if (s[5])
-		all->number_philo_each = ft_atoi(s[5]);
+		all->number_philo_each = ft_atoi(s[5]) - 1;
 	else
 		all->number_philo_each = -1;
 }
@@ -43,13 +43,13 @@ int	main(int c, char **s)
 	int			i;
 	pthread_t	check_philo_life;
 
-	// void		*S = NULL;
 	i = 0;
 	if (c == 5 || c == 6)
 	{
 		data = malloc(sizeof(t_philo) * ft_atoi(s[1]));
 		all = malloc(sizeof(t_all));
-		gettimeofday(&all->start, NULL);
+		// gettimeofday(&all->start, NULL);
+		all->start = get_time();
 		data_management(all, s);
 		all->fork = malloc(sizeof(pthread_mutex_t)
 				* all->number_of_philosophers);

@@ -6,7 +6,7 @@
 /*   By: mskerba <mskerba@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/01 12:06:11 by mskerba           #+#    #+#             */
-/*   Updated: 2022/06/02 13:57:30 by mskerba          ###   ########.fr       */
+/*   Updated: 2022/06/02 18:06:36 by mskerba          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,21 +28,19 @@ void	*ft_check_thread(void *rcv)
 		while (i < data[0].all->number_of_philosophers)
 		{
 			pthread_mutex_lock(&data[i].last);
-			gettimeofday(&data[i].s_end, NULL);
 			if (data[i].n_philo_each > data[i].all->number_philo_each
 				&& data[i].all->number_philo_each != -1)
 				j++;
-			time = (((data[i].s_end.tv_sec - data[i].s_start.tv_sec) * 1000)
-					+ ((data[i].s_end.tv_usec - data[i].s_start.tv_usec)
-						/ 1000));
-			if (time >= data[i].all->time_to_die)
+			time = get_time() -  data[i].s_start;
+			// printf("%d  %d %f\n",i,data[i].is_eating,time);
+			if (time >= data[i].all->time_to_die && data[i].is_eating == 0)
 			{
-				die_time(data);
+				die_time(&data[i]);
 				return ("fail");
 			}
 			pthread_mutex_unlock(&data[i].last);
 			i++;
-			// usleep(100);
+			// usleep(500);
 		}
 		if (j == data[0].all->number_of_philosophers
 			&& data[0].all->number_philo_each != -1)

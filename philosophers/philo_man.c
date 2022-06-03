@@ -6,17 +6,17 @@
 /*   By: mskerba <mskerba@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/30 11:36:09 by mskerba           #+#    #+#             */
-/*   Updated: 2022/06/02 14:01:06 by mskerba          ###   ########.fr       */
+/*   Updated: 2022/06/02 17:44:47 by mskerba          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philosophers.h"
-#include <string.h>
+
 void	print_action(t_philo *data, double time, char *msg)
 {
 	pthread_mutex_lock(&data->all->all_fork);
 	printf("%.0f %d %s\n", time, data->name, msg);
-	if (strcmp("die", msg))
+	if (ft_strcmp("die", msg))
 		pthread_mutex_unlock(&data->all->all_fork);
 }
 
@@ -41,9 +41,6 @@ void	ft_usleep(int time)
 
 int	odd_philo(t_philo *data)
 {
-	pthread_mutex_lock(&data->last);
-	gettimeofday(&data->s_start, NULL);
-	pthread_mutex_unlock(&data->last);
 	while (1)
 	{
 		pthread_mutex_lock(&data->all->fork[data->name - 1]);
@@ -53,7 +50,8 @@ int	odd_philo(t_philo *data)
 		taken_fork_time(data);
 		eating_time(data);
 		pthread_mutex_lock(&data->last);
-		gettimeofday(&data->s_start, NULL);
+		data->s_start = get_time();
+		data->is_eating =  1;
 		data->n_philo_each++;
 		pthread_mutex_unlock(&data->last);
 		ft_usleep(data->all->time_to_eat);
@@ -74,6 +72,8 @@ void	*ft_thread(void *rcv)
 	data = (t_philo *)rcv;
 	pthread_mutex_lock(&data->last);
 	data->n_philo_each = 0;
+	data->is_eating = 0;
+	data->s_start = get_time();
 	pthread_mutex_unlock(&data->last);
 	odd_philo(data);
 	return (NULL);
