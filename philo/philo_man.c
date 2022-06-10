@@ -6,7 +6,7 @@
 /*   By: mskerba <mskerba@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/30 11:36:09 by mskerba           #+#    #+#             */
-/*   Updated: 2022/06/02 17:44:47 by mskerba          ###   ########.fr       */
+/*   Updated: 2022/06/04 18:51:49 by mskerba          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ void	print_action(t_philo *data, double time, char *msg)
 {
 	pthread_mutex_lock(&data->all->all_fork);
 	printf("%.0f %d %s\n", time, data->name, msg);
-	if (ft_strcmp("die", msg))
+	if (ft_strcmp("died", msg))
 		pthread_mutex_unlock(&data->all->all_fork);
 }
 
@@ -35,8 +35,9 @@ void	ft_usleep(int time)
 	long	start;
 
 	start = get_time();
+	usleep(time * 800);
 	while (get_time() < start + time)
-		usleep(10);
+		usleep(50);
 }
 
 int	odd_philo(t_philo *data)
@@ -46,18 +47,18 @@ int	odd_philo(t_philo *data)
 		pthread_mutex_lock(&data->all->fork[data->name - 1]);
 		taken_fork_time(data);
 		pthread_mutex_lock(&data->all->fork[data->name
-				% data->all->number_of_philosophers]);
+			% data->all->number_of_philosophers]);
 		taken_fork_time(data);
 		eating_time(data);
 		pthread_mutex_lock(&data->last);
 		data->s_start = get_time();
-		data->is_eating =  1;
+		data->is_eating = 1;
 		data->n_philo_each++;
 		pthread_mutex_unlock(&data->last);
 		ft_usleep(data->all->time_to_eat);
 		pthread_mutex_unlock(&data->all->fork[data->name - 1]);
 		pthread_mutex_unlock(&data->all->fork[data->name
-				% data->all->number_of_philosophers]);
+			% data->all->number_of_philosophers]);
 		sleeping_time(data);
 		ft_usleep(data->all->time_to_sleep);
 		thinking_time(data);
@@ -67,7 +68,7 @@ int	odd_philo(t_philo *data)
 
 void	*ft_thread(void *rcv)
 {
-	t_philo *data;
+	t_philo	*data;
 
 	data = (t_philo *)rcv;
 	pthread_mutex_lock(&data->last);

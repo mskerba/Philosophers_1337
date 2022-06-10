@@ -6,13 +6,11 @@
 /*   By: mskerba <mskerba@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/02 17:30:22 by mskerba           #+#    #+#             */
-/*   Updated: 2022/06/02 17:30:31 by mskerba          ###   ########.fr       */
+/*   Updated: 2022/06/04 12:56:47 by mskerba          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-
 #include "philosophers.h"
-
 
 int	ft_strcmp(char	*s1, char	*s2)
 {

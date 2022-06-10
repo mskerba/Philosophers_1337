@@ -6,7 +6,7 @@
 /*   By: mskerba <mskerba@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/30 16:53:01 by mskerba           #+#    #+#             */
-/*   Updated: 2022/06/02 17:48:57 by mskerba          ###   ########.fr       */
+/*   Updated: 2022/06/04 18:52:59 by mskerba          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,5 +52,5 @@ void	die_time(t_philo *data)
 	unsigned long	time;
 
 	time = get_time() - data->all->start;
-	print_action(data, time, "die");
+	print_action(data, time, "died");
 }

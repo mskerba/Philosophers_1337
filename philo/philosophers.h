@@ -6,7 +6,7 @@
 /*   By: mskerba <mskerba@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/29 16:07:00 by mskerba           #+#    #+#             */
-/*   Updated: 2022/06/02 17:30:54 by mskerba          ###   ########.fr       */
+/*   Updated: 2022/06/04 13:01:50 by mskerba          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,10 +26,8 @@ typedef struct s_data
 	long			time_to_eat;
 	long			time_to_sleep;
 	int				number_philo_each;
-	// struct timeval	start;
 	long			start;
 	pthread_mutex_t	all_fork;
-	pthread_mutex_t	die;
 	pthread_mutex_t	*fork;
 }					t_all;
 
@@ -40,7 +38,7 @@ typedef struct philosophers
 	int				name;
 	long			s_start;
 	long			s_end;
-	int			is_eating;
+	int				is_eating;
 	int				n_philo_each;
 	pthread_mutex_t	last;
 }					t_philo;
