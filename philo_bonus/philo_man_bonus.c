@@ -6,7 +6,7 @@
 /*   By: mskerba <mskerba@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/30 11:36:09 by mskerba           #+#    #+#             */
-/*   Updated: 2022/06/18 13:30:33 by mskerba          ###   ########.fr       */
+/*   Updated: 2022/06/18 13:49:35 by mskerba          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,11 +21,13 @@ void	*ft_check_life(void *rcv)
 	while (1)
 	{
 		time = get_time() - data->s_start;
-		if (time >= data->all->time_to_die)
+		if (time >= data->all->time_to_die && data->is_eating == 0)
 		{
 			if (data->all->number_of_philosophers == 1)
 				sem_post(data->all->fork);
 			data->is_died = 1;
+			die_time(data);
+			exit(0);
 		}
 		usleep(100);
 	}
@@ -38,11 +40,6 @@ void	check_died(t_philo *data, int is_eat)
 	thinking_time(data);
 	if (is_eat == data->all->number_philo_each)
 		exit(1);
-	if (data->is_died == 1)
-	{
-		die_time(data);
-		exit(0);
-	}
 }
 
 void	philo_man(t_philo *data)
