@@ -6,7 +6,7 @@
 /*   By: mskerba <mskerba@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/29 16:07:35 by mskerba           #+#    #+#             */
-/*   Updated: 2022/06/09 12:42:22 by mskerba          ###   ########.fr       */
+/*   Updated: 2022/06/17 11:28:28 by mskerba          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,9 +50,20 @@ static void	philo_name(t_philo *data, t_all *all)
 	all->number_of_philosophers = j;
 }
 
-static void check_arg()
+static int	check_arg(char **s)
 {
-	
+	if (ft_atoi(s[1]) <= 0)
+		return (0);
+	if (ft_atoi(s[2]) <= 0)
+		return (0);
+	if (ft_atoi(s[3]) <= 0)
+		return (0);
+	if (ft_atoi(s[4]) <= 0)
+		return (0);
+	if (s[5])
+		if (ft_atoi(s[5]) <= 0)
+			return (0);
+	return (1);
 }
 
 int	main(int c, char **s)
@@ -67,8 +78,9 @@ int	main(int c, char **s)
 	{
 		data = malloc(sizeof(t_philo) * ft_atoi(s[1]));
 		all = malloc(sizeof(t_all));
+		if (!check_arg(s))
+			return (0);
 		data_management(all, s);
-		chech_arg(all);
 		all->fork = malloc(sizeof(pthread_mutex_t)
 				* all->number_of_philosophers);
 		while (++i < all->number_of_philosophers)

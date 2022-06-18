@@ -6,7 +6,7 @@
 /*   By: mskerba <mskerba@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/04 15:25:15 by mskerba           #+#    #+#             */
-/*   Updated: 2022/06/09 20:31:26 by mskerba          ###   ########.fr       */
+/*   Updated: 2022/06/18 10:07:12 by mskerba          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,32 +36,20 @@ static void	philo_name(t_philo *data, t_all *all)
 	all->number_of_philosophers = j;
 }
 
-void	create_pross(t_philo *data, t_all *all)
+static int	check_arg(char **s)
 {
-	int	i;
-	int	id;
-	int	pid;
-	int	status;
-
-	i = 0;
-	all->start = get_time();
-	// printf("id_main_proc= %d\n",getpid());
-	while (i < all->number_of_philosophers)
-	{
-		id = fork();
-		if (id == 0)
-		{
-			data[i].all = all;
-			philo_man(&data[i], &status);
-		}
-		if (id != 0)
-			pid = id;
-		i++;
-	}
-	status = 5;
-	// printf("--%d\n",pid);
-	waitpid(pid, &status, 0);
-	// printf("===%d %d\n",pid,getpid());
+	if (ft_atoi(s[1]) <= 0)
+		return (0);
+	if (ft_atoi(s[2]) <= 0)
+		return (0);
+	if (ft_atoi(s[3]) <= 0)
+		return (0);
+	if (ft_atoi(s[4]) <= 0)
+		return (0);
+	if (s[5])
+		if (ft_atoi(s[5]) <= 0)
+			return (0);
+	return (1);
 }
 
 int	main(int c, char **s)
@@ -70,22 +58,23 @@ int	main(int c, char **s)
 	t_all	*all;
 	int		i;
 
-	// sem_t	*las;
-	// int		k;
 	i = -1;
 	if (c == 5 || c == 6)
 	{
 		data = malloc(sizeof(t_philo) * ft_atoi(s[1]));
 		all = malloc(sizeof(t_all));
+		all->pid = getpid();
+		if (!check_arg(s))
+			return (0);
 		data_management(all, s);
 		philo_name(data, all);
-		sem_unlink("ok");
-		all->fork = sem_open("ok", O_CREAT, 777, all->number_of_philosophers);
-		// k = sem_wait(las);
-		// printf("%d\n", k);
-		// sem_post(las);
-		// printf("dsdjkfld\n");
+		sem_unlink("sem_fork");
+		sem_unlink("sem_print");
+		all->print = sem_open("sem_print", O_CREAT, 777, 1);
+		all->fork = sem_open("sem_fork", O_CREAT, 777,
+				all->number_of_philosophers);
 		create_pross(data, all);
 		sem_close(all->fork);
+		sem_close(all->print);
 	}
 }
