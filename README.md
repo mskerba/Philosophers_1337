@@ -242,7 +242,22 @@
         > **Explication :** Ici, deux threads d'exécution sont créés dans le code. L'ordre des lignes de sortie des deux threads peut être inter changé en fonction du thread traité précédemment. Le thread principal attend le thread nouvellement créé pour quitter. Par conséquent, la dernière ligne de la sortie n'est imprimée qu'après la sortie du nouveau thread. Les threads peuvent se terminer indépendamment les uns des autres en n'utilisant pas la fonction *pthread_join* . Si nous voulons terminer le nouveau thread manuellement, nous pouvons utiliser *pthread_cancel* pour le faire.
         > 
         > **Remarque :** Si nous utilisons exit() au lieu de **pthread_exit()** pour terminer un thread, l'ensemble du processus avec tous les threads associés sera terminé même si certains des threads sont encore en cours d'exécution.
-        > 
+
+- **Que sont les threads dans le processeur ou le CPU de l'ordinateur ?**
+    
+    **[Les threads](https://www.geeksforgeeks.org/thread-in-operating-system/)** sont les composants ou codes virtuels, qui divisent le cœur physique d'un processeur en plusieurs cœurs virtuels. Un seul cœur de processeur peut avoir jusqu'à 2 threads par cœur.
+    
+    Par exemple, si un processeur est à double cœur (c'est-à-dire 2 cœurs), il aura 4 threads. Et si un processeur est octal (c'est-à-dire 8 cœurs), il aura 16 threads et vice-versa.
+    
+    **Travail :**Le thread est créé par un processus. Chaque fois que vous ouvrez une application, elle crée elle-même un thread qui gérera toutes les tâches de cette application spécifique. De même, plus vous ouvrez d'application, plus de threads seront créés.Les threads sont toujours créés par le système d'exploitation pour effectuer une tâche d'une application spécifique.Il existe un seul thread (code de ce noyau qui effectue les calculs également appelé thread principal) sur le noyau qui, lorsqu'il obtient les informations de l'utilisateur, crée un autre thread et lui alloue la tâche. De même, s'il reçoit une autre instruction, il forme un second thread et lui alloue la tâche. Faire un total de deux fils.
+    
+    **Exemple :**L'application pour smartphone en est un exemple, lorsque vous ouvrez une application, elle affiche un cercle qui tourne en continu, ce processus est effectué par un fil créé à cet effet uniquement, et le deuxième fil charge les informations et les présente dans le graphique. Interface utilisateur.
+    
+    Le seul fait qui limitera la création des threads sera le nombre de threads fournis par le CPU physique, et il varie d'un CPU à l'autre. La 1ère image est le spinner de chargement par le premier thread et la seconde est le chargement de l'interface graphique par le deuxième thread.
+    
+    ![https://media.geeksforgeeks.org/wp-content/uploads/20200305160539/Thread-example-2.jpg](https://media.geeksforgeeks.org/wp-content/uploads/20200305160539/Thread-example-2.jpg)
+    
+    **Maintenant, à quoi sert un thread ?**Les threads sont devenus une partie essentielle de l'informatique car ils permettent au processeur d'effectuer plusieurs tâches en même temps, ce qui les rend plus rapides. Et aussi rendre l'ordinateur capable d'effectuer plusieurs tâches. En raison des fils de discussion, vous pouvez naviguer sur le Web et écouter de la musique simultanément.
 - **Threads**`(The Linux Programming Interface)`
     
     [](https://sciencesoftcode.files.wordpress.com/2018/12/the-linux-programming-interface-michael-kerrisk-1.pdf)
