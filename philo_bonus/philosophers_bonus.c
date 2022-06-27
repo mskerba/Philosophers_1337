@@ -6,7 +6,7 @@
 /*   By: mskerba <mskerba@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/04 15:25:15 by mskerba           #+#    #+#             */
-/*   Updated: 2022/06/18 10:07:12 by mskerba          ###   ########.fr       */
+/*   Updated: 2022/06/27 06:46:12 by mskerba          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,6 @@ int	main(int c, char **s)
 	{
 		data = malloc(sizeof(t_philo) * ft_atoi(s[1]));
 		all = malloc(sizeof(t_all));
-		all->pid = getpid();
 		if (!check_arg(s))
 			return (0);
 		data_management(all, s);

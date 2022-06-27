@@ -6,7 +6,7 @@
 /*   By: mskerba <mskerba@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/29 16:07:00 by mskerba           #+#    #+#             */
-/*   Updated: 2022/06/04 13:01:50 by mskerba          ###   ########.fr       */
+/*   Updated: 2022/06/22 10:01:15 by mskerba          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ typedef struct philosophers
 	t_all			*all;
 	int				name;
 	long			s_start;
-	long			s_end;
+	long			s_end; 
 	int				is_eating;
 	int				n_philo_each;
 	pthread_mutex_t	last;
